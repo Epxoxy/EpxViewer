@@ -1,0 +1,38 @@
+﻿<Window x:Class="EpxViewer.WaringBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EpxViewer"
+        mc:Ignorable="d" x:Name="waringwin"
+        SizeToContent="WidthAndHeight" WindowStyle="None" MinHeight="100" AllowsTransparency="True"
+        ShowInTaskbar="False" ResizeMode="NoResize" BorderThickness="0"
+        Title="WaringBox" MaxHeight="400" MaxWidth="300" RenderTransformOrigin="0.5,0.5" Opacity="1">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="waringwin" Storyboard.TargetProperty="Opacity" From="0.5" To="1" Duration="0:0:0.2">
+                        <DoubleAnimation.EasingFunction>
+                            <CubicEase EasingMode="EaseOut"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid x:Name="boxroot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="PART_Title" FontSize="20" Foreground="DimGray" FontWeight="DemiBold"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"
+                   Text="{Binding Title, FallbackValue='Alert'}" />
+        <Line X1="0.5" X2="180" Y1="0.5" Y2="0.5" StrokeThickness="1" Stroke="LightGray" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="30,0"/>
+        <Grid Grid.Row="1" Margin="10">
+            <TextBlock x:Name="PART_Message" Text="{Binding Message, FallbackValue='Message'}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="DimGray"></TextBlock>
+        </Grid>
+    </Grid>
+</Window>

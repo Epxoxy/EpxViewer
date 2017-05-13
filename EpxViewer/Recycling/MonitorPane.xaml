@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="EpxViewer.MonitorPane"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EpxViewer"
+             mc:Ignorable="d" Width="352" Height="125" >
+    <Grid>
+        <Grid x:Name="grid0" OpacityMask="White" Height="62" VerticalAlignment="Top" MouseEnter="monitorMouseEnter" MouseLeave="monitorMouseLeave">
+            <Grid.Background>
+                <ImageBrush x:Name="bg0" ImageSource="../Images/monitor/hp_bar_ex.png" />
+            </Grid.Background>
+            <local:PolygonProgress x:Name="cpupro" BarHeight="17" Height="13" Stroke="0" Width="298" Margin="26,18,0,31" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                               Describe="USAGE" DescribeWidth="52" AroundData="M0,0 H10 L9.85,3 L5.25,3 L4.95,10 H0 Z"/>
+            <TextBlock x:Name="hpstate" Text="00/0000" Foreground="{StaticResource Text.Foreground}" FontWeight="DemiBold" FontSize="12"
+                       HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="60,7"/>
+            <TextBlock x:Name="lvstate" Text="NULL" Foreground="{StaticResource Text.Foreground}" FontWeight="DemiBold" FontSize="12"
+                       HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="18,7"/>
+        </Grid>
+        <Grid x:Name="grid1" Margin="0,45,0,0" Width="212" Height="42" HorizontalAlignment="Left" VerticalAlignment="Top"
+                          MouseEnter="monitorMouseEnter" MouseLeave="monitorMouseLeave">
+            <Grid.Background>
+                <ImageBrush x:Name="bg1" ImageSource="../Images/monitor/sp_bar.png" />
+            </Grid.Background>
+            <local:PolygonProgress x:Name="rampro" Describe="WORK" DescribeWidth="52" BarHeight="6" Stroke="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="26,12,18,0"/>
+        </Grid>
+        <Grid x:Name="grid2" Width="212" Height="42" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                      MouseEnter="monitorMouseEnter" MouseLeave="monitorMouseLeave">
+            <Grid.Background>
+                <ImageBrush x:Name="bg2" ImageSource="../Images/monitor/sp_bar.png" />
+            </Grid.Background>
+            <local:PolygonProgress x:Name="diskpro" Describe="SPACE" DescribeWidth="52" BarHeight="6" Stroke="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="26,12,16,0"/>
+        </Grid>
+    </Grid>
+</UserControl>

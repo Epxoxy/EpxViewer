@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="EpxViewer.EditMenuPane"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EpxViewer"
+             mc:Ignorable="d" 
+             d:DesignHeight="96" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style x:Key="ValidationTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <DockPanel LastChildFill="True">
+                            <TextBlock DockPanel.Dock="Right" Foreground="Coral" FontSize="16" FontWeight="DemiBold">!</TextBlock>
+                            <Border BorderBrush="Gainsboro"  BorderThickness="0,0,0,1">
+                                <AdornedElementPlaceholder Name="adornerPlaceholder"></AdornedElementPlaceholder>
+                            </Border>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </UserControl.Resources>
+    <Grid MinWidth="300" MinHeight="100" x:Name="rootGrid" TextElement.FontSize="16" TextElement.Foreground="DimGray" TextElement.FontWeight="DemiBold">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="55"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Menu:</TextBlock>
+        <TextBox x:Name="nameTextBox" Grid.Column="1" TextWrapping="Wrap" MaxLines="1" Background="Transparent" Text="{Binding NavName, FallbackValue='Empty'}" BorderThickness="0" VerticalAlignment="Center"/>
+        <TextBox Style="{StaticResource ValidationTextBoxStyle}" FontSize="12" Grid.Row="1" Grid.Column="1" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" VerticalAlignment="Center" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <TextBox.Text>
+                <Binding Path="RunPath" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <local:PathRule />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Button Grid.Row="1" Content="EditRun" Background="Transparent" BorderThickness="0" Drop="onDragEnter" AllowDrop="True" Click="onClick">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border TextBlock.FontSize="14" TextBlock.Foreground="DimGray">
+                        <Grid>
+                            <Rectangle Fill="Transparent" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+    </Grid>
+</UserControl>

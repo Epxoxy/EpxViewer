@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A5C9BB18-6EA4-4F6C-8A27-9836E16B72F4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EpxViewer</RootNamespace>
+    <AssemblyName>EpxViewer</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>EpxViewer.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Gma.System.MouseKeyHook">
+      <HintPath>Resources\Gma.System.MouseKeyHook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Check\CircleStrokeDashArrayConverter.cs" />
+    <Compile Include="Extension\SpecialCommand.cs" />
+    <Compile Include="Extension\Command.cs" />
+    <Compile Include="Extension\ItemsControlExt.cs" />
+    <Compile Include="Extension\Logger.cs" />
+    <Compile Include="Extension\Helper\SerializeHelper.cs" />
+    <Compile Include="Extension\Helper\TreeHelper.cs" />
+    <Compile Include="Check\ProcessPane.xaml.cs">
+      <DependentUpon>ProcessPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TPopup.cs" />
+    <Compile Include="View\EditMenuPane.xaml.cs">
+      <DependentUpon>EditMenuPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Extension\CreateProcess.cs" />
+    <Compile Include="View\Controls\OutlinedTextBlock.cs" />
+    <Compile Include="Extension\IShowInfo.cs" />
+    <Compile Include="Recycling\LoadAniPanel.cs" />
+    <Compile Include="View\MonitorPane2.xaml.cs">
+      <DependentUpon>MonitorPane2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FormView\EllipseButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\FormView\MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FormView\MessageForm.Designer.cs">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extension\Helper\BehaviorHelper.cs" />
+    <Compile Include="Extension\Convertor.cs" />
+    <Compile Include="View\InfoPane.xaml.cs">
+      <DependentUpon>InfoPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MenuPan.xaml.cs">
+      <DependentUpon>MenuPan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Recycling\MonitorPane.xaml.cs">
+      <DependentUpon>MonitorPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Extension\ExtPopup.cs" />
+    <Compile Include="View\Controls\Progress\PolygonProgress.cs" />
+    <Compile Include="Extension\Utils.cs" />
+    <Compile Include="Extension\Win32API.cs" />
+    <Compile Include="WaringBox.xaml.cs">
+      <DependentUpon>WaringBox.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Check\ProcessPane.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditMenuPane.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MonitorPane2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\Alert\AlertBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recycling\DetailPane.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FloatEllipse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InfoPane.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MenuPan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recycling\MonitorPane.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\Controls\Alert\Alert.cs" />
+    <Compile Include="View\Controls\Alert\AlertBox.xaml.cs">
+      <DependentUpon>AlertBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FormView\DarkerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FormView\DarkerForm.Designer.cs">
+      <DependentUpon>DarkerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Recycling\DetailPane.xaml.cs">
+      <DependentUpon>DetailPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FloatEllipse.xaml.cs">
+      <DependentUpon>FloatEllipse.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\Panel\ListBox\ListBox.cs" />
+    <Compile Include="View\Controls\Panel\ListBox\ListBoxHelper.cs" />
+    <Compile Include="View\Controls\Panel\EndlessStackPanel.cs" />
+    <Page Include="Recycling\MessagePane.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WaringBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Recycling\MessagePane.xaml.cs">
+      <DependentUpon>MessagePane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="View\FormView\DarkerForm.resx">
+      <DependentUpon>DarkerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FormView\MessageForm.resx">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\background\btn_hover.png" />
+    <Resource Include="Images\background\btn_mask.png" />
+    <Resource Include="Images\background\btn_mask_ex.png" />
+    <Resource Include="Images\background\btn_normal.png" />
+    <Resource Include="Images\background\btn_press.png" />
+    <Resource Include="Images\background\dialog.png" />
+    <Resource Include="Images\background\list_hover.png" />
+    <Resource Include="Images\background\list_mask.png" />
+    <Resource Include="Images\background\list_normal.png" />
+    <Resource Include="Images\background\list_press.png" />
+    <Resource Include="Images\background\list_select.png" />
+    <Resource Include="Images\background\message.png" />
+    <Resource Include="Images\background\notify.png" />
+    <Resource Include="Images\background\panel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\background\indicator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icon\add_hover.png" />
+    <Resource Include="Images\icon\add_normal.png" />
+    <Resource Include="Images\icon\appearance_hover.png" />
+    <Resource Include="Images\icon\appearance_normal.png" />
+    <Resource Include="Images\icon\cancel_disable.png" />
+    <Resource Include="Images\icon\cancel_hover.png" />
+    <Resource Include="Images\icon\cancel_normal.png" />
+    <Resource Include="Images\icon\close_hover.png" />
+    <Resource Include="Images\icon\close_normal.png" />
+    <Resource Include="Images\icon\close_press.png" />
+    <Resource Include="Images\icon\default_hover.png" />
+    <Resource Include="Images\icon\default_normal.png" />
+    <Resource Include="Images\icon\default_press.png" />
+    <Resource Include="Images\icon\equipment_hover.png" />
+    <Resource Include="Images\icon\equipment_normal.png" />
+    <Resource Include="Images\icon\file_hover.png" />
+    <Resource Include="Images\icon\file_normal.png" />
+    <Resource Include="Images\icon\folder_hover.png" />
+    <Resource Include="Images\icon\folder_normal.png" />
+    <Resource Include="Images\icon\graphics_hover.png" />
+    <Resource Include="Images\icon\graphics_normal.png" />
+    <Resource Include="Images\icon\guide_hover.png" />
+    <Resource Include="Images\icon\guide_normal.png" />
+    <Resource Include="Images\icon\help_hover.png" />
+    <Resource Include="Images\icon\help_normal.png" />
+    <Resource Include="Images\icon\items_hover.png" />
+    <Resource Include="Images\icon\items_normal.png" />
+    <Resource Include="Images\icon\logout_hover.png" />
+    <Resource Include="Images\icon\logout_normal.png" />
+    <Resource Include="Images\icon\menu_hover.png" />
+    <Resource Include="Images\icon\menu_normal.png" />
+    <Resource Include="Images\icon\menu_press.png" />
+    <Resource Include="Images\icon\modify_hover.png" />
+    <Resource Include="Images\icon\modify_normal.png" />
+    <Resource Include="Images\icon\move_hover.png" />
+    <Resource Include="Images\icon\move_normal.png" />
+    <Resource Include="Images\icon\next_hover.png" />
+    <Resource Include="Images\icon\next_normal.png" />
+    <Resource Include="Images\icon\next_press.png" />
+    <Resource Include="Images\icon\ok_disable.png" />
+    <Resource Include="Images\icon\ok_hover.png" />
+    <Resource Include="Images\icon\ok_normal.png" />
+    <Resource Include="Images\icon\option_hover.png" />
+    <Resource Include="Images\icon\option_normal.png" />
+    <Resource Include="Images\icon\prev_hover.png" />
+    <Resource Include="Images\icon\prev_normal.png" />
+    <Resource Include="Images\icon\prev_press.png" />
+    <Resource Include="Images\icon\remove_hover.png" />
+    <Resource Include="Images\icon\remove_normal.png" />
+    <Resource Include="Images\icon\run_hover.png" />
+    <Resource Include="Images\icon\run_normal.png" />
+    <Resource Include="Images\icon\skills_hover.png" />
+    <Resource Include="Images\icon\skills_normal.png" />
+    <Resource Include="Images\icon\sound_hover.png" />
+    <Resource Include="Images\icon\sound_normal.png" />
+    <Resource Include="Images\icon\theme_hover.png" />
+    <Resource Include="Images\icon\theme_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OkHover.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\monitor\hp_bar_ex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\monitor\sp_bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\monitor\sp_green.png" />
+    <Resource Include="Images\monitor\sp_red.png" />
+    <Resource Include="Images\monitor\sp_yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\btnicon\add_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\btnicon\shut-down_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\btnicon\note1_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\btnicon\remove_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\btnicon\cancel.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

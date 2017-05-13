@@ -1,0 +1,300 @@
+﻿<UserControl x:Class="EpxViewer.MenuPan"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EpxViewer"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:array="clr-namespace:System.Collections;assembly=mscorlib"
+             xmlns:lb="clr-namespace:EpxViewer.ListBox"
+             xmlns:ext="clr-namespace:EpxViewer.Extension"
+             mc:Ignorable="d" >
+    <UserControl.Resources>
+        <local:Bool2Visibility x:Key="bool2Visible" />
+        <Style x:Key="ellipseButton" TargetType="{x:Type RadioButton}">
+            <Setter Property="Height" Value="64" />
+            <Setter Property="Width" Value="64" />
+            <Setter Property="Margin" Value="0,7" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="DimGray" />
+            <Setter Property="FontWeight" Value="DemiBold" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Border>
+                            <Grid>
+                                <Image x:Name="image" Source="../Images/background/btn_normal.png"/>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="image" Property="Source" Value="../Images/background/btn_hover.png" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="image" Property="Source" Value="../Images/background/btn_press.png" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Item.MouseOver.Background" Color="#1F26A0DA"/>
+        <SolidColorBrush x:Key="Item.MouseOver.Border" Color="#a826A0Da"/>
+        <SolidColorBrush x:Key="Item.SelectedInactive.Background" Color="#3DDADADA"/>
+        <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="#FFDADADA"/>
+        <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="#3D26A0DA"/>
+        <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#FF26A0DA"/>
+        <Style x:Key="ListBoxItemStyle1" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true"
+                                MouseRightButtonDown="editMouseRBtnDownUp" MouseRightButtonUp="editMouseRBtnDownUp" Tag="{Binding}">
+                            <Grid Height="64" Width="64">
+                                <Image x:Name="img" Stretch="Uniform" Source="../Images/background/btn_normal.png" />
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Source" TargetName="img" Value="../Images/background/btn_press.png" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <!--<Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.MouseOver.Background}"/>-->
+                                <!--<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.MouseOver.Border}"/>-->
+                                <Setter Property="Source" TargetName="img" Value="../Images/background/btn_hover.png" />
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <!--<Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Border}"/>-->
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <!--<Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Border}"/>-->
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TransparentToggle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border>
+                            <ContentPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Item.Selected.Fill" Color="#F3D13F"/>
+        <SolidColorBrush x:Key="Item.MouseOver.Fill" Color="#F3BE3F"/>
+        <DropShadowEffect x:Key="shadow" BlurRadius="4" Direction="0" ShadowDepth="0" RenderingBias="Performance" Opacity="0.9" Color="LightGray"/>
+        <Style x:Key="ListBoxItemStyle2" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true"
+                                MouseRightButtonDown="editMouseRBtnDownUp" MouseRightButtonUp="editMouseRBtnDownUp" Tag="{Binding}" >
+                            <Grid Margin="0,1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="18"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Polygon x:Name="checkp" Grid.Column="1" Grid.ColumnSpan="2"
+                                         Points="18,0 180,0 180,36 18,36 18,28 18,0" Fill="White" MinHeight="36" Stretch="UniformToFill">
+                                    <!--<Polygon.Effect>
+                                        <DropShadowEffect BlurRadius="4" Direction="0" ShadowDepth="0" RenderingBias="Performance" Opacity="0.9" Color="LightGray"/>
+                                    </Polygon.Effect>-->
+                                </Polygon>
+                                <ContentPresenter Grid.Column="1"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!--<MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.MouseOver.Border}"/>
+                            </MultiTrigger>-->
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="checkp" Property="Points" Value="0,18, 18,8 18,0 180,0 180,36 18,36 18,28 0,18" />
+                                <Setter TargetName="checkp" Property="Grid.Column" Value="0" />
+                                <Setter TargetName="checkp" Property="Fill" Value="{StaticResource Item.Selected.Fill}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="checkp" Property="Fill"  Value="{StaticResource Item.MouseOver.Fill}" />
+                            </Trigger>
+                            <!--<MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Border}"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Border}"/>
+                            </MultiTrigger>-->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="itemListButton" TargetType="{x:Type RadioButton}">
+            <Setter Property="Height" Value="36" />
+            <Setter Property="Width" Value="160" />
+            <Setter Property="Margin" Value="1" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background"  Value="#F3BE3F" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#F3D13F" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="#F3D13F" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--<Storyboard x:Key="ListBoxLoadedStroyboard" >
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" >
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="-100"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Control.LayoutTransform).(ScaleTransform.ScaleX)" >
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.3" From="0.8" To="1"/>
+        </Storyboard>-->
+    </UserControl.Resources>
+    <Canvas x:Name="container" Height="440" Width="864">
+        <Canvas.RenderTransform>
+            <TranslateTransform X="342" />
+        </Canvas.RenderTransform>
+        <Canvas Width="270">
+            <local:InfoPane x:Name="MsgPane" VerticalAlignment="Top" Visibility="Visible" local:ExtPopup.Draggable="True"/>
+        </Canvas>
+        <ListBox x:Name="FrdNavigate" Canvas.Left="270" Canvas.Top="175" Height="260" Width="64"
+                 BorderThickness="0" Background="Transparent" SelectionMode="Single"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="onFrdNavigateSelectionChanged"
+                 ext:ItemsControlExt.IsInView="{Binding IsOpen, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Popup}}}"
+                 ext:ItemsControlExt.ApplyControl="{Binding RelativeSource={RelativeSource Self}}"
+                 ItemContainerStyle="{StaticResource ListBoxItemStyle1}"
+                 VirtualizingStackPanel.IsVirtualizing="False" ScrollViewer.CanContentScroll="True">
+        </ListBox>
+        <Grid Grid.Column="2" Height="240" Canvas.Left="334" Canvas.Top="90">
+            <Image x:Name="Indicator" Panel.ZIndex="1" Margin="-6,0,166,0" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Visible"
+                                   Width="28" Height="190" Source="pack://application:,,,/Images/background/indicator.png" SnapsToDevicePixels="True"/>
+            <ItemsControl x:Name="SubNavigate" Margin="10,0,0,0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Horizontal" VirtualizingPanel.VirtualizationMode="Recycling" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <lb:ListBox VerticalAlignment="Center" Margin="-8,0,0,0" Width="186"
+                                    Background="{x:Null}" BorderThickness="0" BorderBrush="White" Tag="{Binding Index}"
+                                    ItemsSource="{Binding}" ItemContainerStyle="{StaticResource ListBoxItemStyle2}"
+                                    SelectionMode="Single" SelectionChanged="onSubNavigateSelectionChanged"
+                                    VirtualizingStackPanel.IsVirtualizing="False" ScrollViewer.CanContentScroll="True">
+                            <lb:ListBox.RenderTransform>
+                                <TranslateTransform />
+                            </lb:ListBox.RenderTransform>
+                            <lb:ListBox.Triggers>
+                                <!--<EventTrigger RoutedEvent="Loaded">
+                                    <BeginStoryboard x:Name="loadedbs" Storyboard="{StaticResource ListBoxLoadedStroyboard}" />
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="Unloaded">
+                                    <StopStoryboard BeginStoryboardName="loadedbs"/>
+                                </EventTrigger>-->
+                            </lb:ListBox.Triggers>
+                            <lb:ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <local:EndlessStackPanel Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </lb:ListBox.ItemsPanel>
+                            <lb:ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" FontSize="14" FontWeight="SemiBold" Foreground="DimGray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </lb:ListBox.ItemTemplate>
+                        </lb:ListBox>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Canvas>
+</UserControl>

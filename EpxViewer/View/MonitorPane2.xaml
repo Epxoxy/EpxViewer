@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="EpxViewer.MonitorPane2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EpxViewer"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Color x:Key="text.Color" A="255" R="235" G="235" B="235" />
+        <Color x:Key="transcolor" A="219" R="219" G="219" B="219" />
+        <SolidColorBrush x:Key="Text.Foreground" Color="{StaticResource text.Color}" />
+        <SolidColorBrush x:Key="transcolor.Brush" Color="{StaticResource transcolor}" />
+        <Path x:Key="VisualPath" Data="M0,0 H18 V32 H0 V24 H5 S9,24 9,19 V13 S9,8 5,8 H0 Z M20,0 H200 V32 H20 Z M81,10 H188 L183,22 H81Z" Fill="{StaticResource transcolor.Brush}" Margin="2,3" />
+        <!--<LinearGradientBrush x:Key="Polyprogress.fill" StartPoint="0,0" EndPoint="1,0">
+            <GradientStopCollection>
+                <GradientStop Color="{StaticResource transcolor}" Offset="0.6" />
+                <GradientStop Offset="1"/>
+            </GradientStopCollection>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="Thunder.Active.Fill" Color="#f4de27" />-->
+    </UserControl.Resources>
+    <Canvas Height="121" Width="345" >
+        <Border x:Name="barCanvas0" Width="340" Height="45" Padding="22,0"
+                MouseEnter="OnBarMouseEnter" MouseLeave="OnBarMouseLeave">
+            <Border.Background>
+                <VisualBrush x:Name="bg0" Stretch="None" Opacity="0.6">
+                    <VisualBrush.Visual>
+                        <Path Data="M0,0 H18 V40 H0 V30 H5 S9,30 9,25 V15 S9,10 5,10 H0 Z M20,0 H340 V32 H203 V40 H20 Z M82,10 H316 L310,20 H200 L195,28 H82 Z" Margin="2,3" Width="340" Height="45">
+                            <Path.Fill>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStopCollection>
+                                        <GradientStop Color="{StaticResource transcolor}" Offset="0.6" />
+                                        <GradientStop Offset="1"/>
+                                    </GradientStopCollection>
+                                </LinearGradientBrush>
+                            </Path.Fill>
+                        </Path>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Border.Background>
+            <local:PolygonProgress x:Name="cpupb" BarHeight="20" Width="296"
+                                   Describe="HIT.P" FontWeight="Bold"
+                                   AroundData="M0,0 100,0 98,53 50,55 48,100 0,100 Z" />
+        </Border>
+        <Border x:Name="barGrid1" Width="202" Height="38" Canvas.Top="45" Padding="22,0,12,0"
+              MouseEnter="OnBarMouseEnter" MouseLeave="OnBarMouseLeave">
+            <Border.Background>
+                <VisualBrush x:Name="bg1" Visual="{StaticResource VisualPath}" Stretch="None" Opacity="0.6"/>
+            </Border.Background>
+            <local:PolygonProgress x:Name="rampb" Describe="Mory" FontWeight="Bold"/>
+        </Border>
+        <Border x:Name="barGrid2" Width="202" Height="38" Canvas.Top="83" Padding="22,0,12,0"
+              MouseEnter="OnBarMouseEnter" MouseLeave="OnBarMouseLeave">
+            <Border.Background>
+                <VisualBrush x:Name="bg2" Visual="{StaticResource VisualPath}" Stretch="None" Opacity="0.6"/>
+            </Border.Background>
+            <local:PolygonProgress x:Name="procpb" Describe="PROC" FontWeight="Bold">
+            </local:PolygonProgress>
+        </Border>
+        <Canvas x:Name="addCanvas0" Height="60" Width="136" Canvas.Left="204" Canvas.Top="0" MouseEnter="OnBarMouseEnter" MouseLeave="OnBarMouseLeave">
+            <Path x:Name="chargeState" Height="16" Width="16" Canvas.Right="0" Canvas.Top="9" Fill="#f4de27" Data="M0,0 H16 V16 H0 Z M0,9 H4 H7 L5,15 12,7 H9 L11,1 4,9 H0 Z">
+                <Path.RenderTransform>
+                    <SkewTransform AngleX="-30" />
+                </Path.RenderTransform>
+            </Path>
+            <Path x:Name="statePath" Canvas.Bottom="0" Fill="{StaticResource transcolor.Brush}" Opacity="0.6" Data="M1,0 H86 V24 H0 Z M88,0 H135 V24 H88 Z" />
+            <local:OutlinedTextBlock x:Name="hpstate" Canvas.Bottom="4" Canvas.Right="57" Stroke="DarkSlateGray" FontWeight="Bold" StrokeThickness="2" Fill="{StaticResource Text.Foreground}">00/0000</local:OutlinedTextBlock>
+            <local:OutlinedTextBlock x:Name="lvstate" Canvas.Bottom="4" Canvas.Right="9" Stroke="DarkSlateGray" FontWeight="DemiBold" StrokeThickness="2" Fill="{StaticResource Text.Foreground}" >Null</local:OutlinedTextBlock>
+        </Canvas>
+    </Canvas>
+</UserControl>
